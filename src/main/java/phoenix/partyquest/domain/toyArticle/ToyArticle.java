@@ -14,8 +14,8 @@ public class ToyArticle {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
-    private ToyMember author;
+    @JoinColumn(name = "author_id") // fk 컬럼 이름
+    private ToyMember author; // jpa가 로딩할때 객체로 불러오고 실제 db에서 참조 할때는 fk로 찾는다.
     private String title;
     private String content;
 
