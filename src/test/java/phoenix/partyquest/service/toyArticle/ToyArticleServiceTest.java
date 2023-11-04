@@ -39,8 +39,11 @@ class ToyArticleServiceTest {
                                         .build();
         ToyMember savedMember = toyMemberRepository.save(testMember);
         // 새로 멤버가 저장되는지 확인
+        // 저장된 이름과 초기화 한 이름이 같은 지를 비교
         Assertions.assertThat(savedMember.getName()).isEqualTo(name1);
 
+
+        // requestDTO 에서 필요한, authorId/title/content 정보 초기화
         Long testAuthorId = savedMember.getId();
         String testTitle = "testTitle";
         String testContent = "testContent";

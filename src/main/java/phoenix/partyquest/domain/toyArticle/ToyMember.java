@@ -24,6 +24,6 @@ public class ToyMember {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.role = role== null ? ToyMemberRole.ROLE_USER : role;
+        this.role = role== null ? ToyMemberRole.ROLE_USER : role; // 역할이 없는 경우에 ROLE_USER 부여
     }
 }
