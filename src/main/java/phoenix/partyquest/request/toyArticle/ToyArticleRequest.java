@@ -21,14 +21,12 @@ public class ToyArticleRequest {
         this.authorId = authorId;
         this.title = title;
         this.content = content;
-
-
-    public ToyArticle toToyArticle(ToyMember author){
-        return ToyArticle.builder()
-                .author(author)
-                .title(this.title)
-                .content(this.content)
-                .build();
     }
-
+    public ToyArticle toToyArticle(ToyMember author){
+            return ToyArticle.builder()
+                    .author(author)
+                    .title(this.title)
+                    .content(this.content)
+                    .build();
+    }
 }

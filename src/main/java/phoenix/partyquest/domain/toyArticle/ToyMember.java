@@ -24,6 +24,6 @@ public class ToyMember {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.role = role==null ? ToyMemberRole.ROLE_USER : role;
+        this.role = role== null ? ToyMemberRole.ROLE_USER : role;
     }
 }
