@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import phoenix.partyquest.domain.toyArticle.ToyArticle;
+import phoenix.partyquest.domain.toyArticle.ToyMember;
 import phoenix.partyquest.repository.toyArticle.ToyArticleRepository;
+import phoenix.partyquest.repository.toyArticle.ToyMemberRepository;
 import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
 
 @Slf4j
@@ -14,10 +17,13 @@ import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
 public class ToyArticleService {
 
     private final ToyArticleRepository toyArticleRepository;
-    private final ModelMapper modelMapper;
+    private final ToyMemberRepository toyMemberRepository;
 
-    public ToyArticle save(ToyArticleRequest toyArticleRequest){
-        return toyArticleRepository.save(toyArticleRequest.toToyArticle());
+    @Transactional
+    public ToyArticle insertArticle(ToyArticleRequest toyArticleRequest){
+        // DB에서 정보(author) 찾아오기
+        ToyMember findMember = toyMemberRepository.findById(toyArticleRequest.getAuthorId()).orElseThrow();
+        return toyArticleRepository.save(toyArticleRequest.toToyArticle(findMember));
     }
 
 
