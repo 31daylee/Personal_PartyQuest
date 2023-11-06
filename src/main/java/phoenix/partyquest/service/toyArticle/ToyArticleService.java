@@ -10,6 +10,8 @@ import phoenix.partyquest.repository.toyArticle.ToyArticleRepository;
 import phoenix.partyquest.repository.toyArticle.ToyMemberRepository;
 import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor // 생성자 주입을 자동으로 생성
@@ -23,9 +25,16 @@ public class ToyArticleService {
     @Transactional
     public ToyArticle insertArticle(ToyArticleRequest toyArticleRequest){
         // DB에서 정보(author) 찾아오기
+        log.info("toyArticleRequest authorId : " + toyArticleRequest.getAuthorId());
+        log.info("toyArticleRequest getContent : " + toyArticleRequest.getContent());
+        log.info("toyArticleRequest getTitle : " + toyArticleRequest.getTitle());
         ToyMember findMember = toyMemberRepository.findById(toyArticleRequest.getAuthorId()).orElseThrow();
         // 존재 하는 멤버가 있을 시, 글 등록하기
         return toyArticleRepository.save(toyArticleRequest.toToyArticle(findMember));
+    }
+
+    public List<ToyArticle> selectArticles(){
+        return toyArticleRepository.findAll();
     }
 
 

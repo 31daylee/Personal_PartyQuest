@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+  <body>
+    <div id="wrapper">
+      <header>
+
+
+      <section id="cs">
+        <div class="qna">
+          <nav>
+            <div>
+              <p>홈<span>></span>문의하기</p>
+            </div>
+          </nav>
+          <section class="write">
+
+            <article>
+              <form th:action="@{/toyArticle/write}"  method="POST">
+                <input type="text" name= "authorId" value="1234" />
+                <table>
+                  <tr>
+                    <td>문의제목</td>                  
+                    <td>
+                      <input type="text" name="title" placeholder="제목을 입력하세요."/>
+                    </td>
+                  </tr>                
+                  <tr>
+                    <td>문의내용</td>                  
+                    <td>
+                      <textarea name="content" placeholder="내용을 입력하세요."></textarea>
+                    </td>
+                  </tr>
+                </table>
+                <div>
+                  <a th:href="@{/toyArticle/list}" class="btnList">취소하기</a>
+                  <input type="submit" class="btnSubmit" value="등록하기"/>
+                </div>
+              </form>
+            </article>
+          </section>
+        </div>
+      </section>
+
+
+  </body>
+
+</html>

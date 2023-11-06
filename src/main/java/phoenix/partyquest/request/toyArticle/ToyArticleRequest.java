@@ -3,11 +3,11 @@ package phoenix.partyquest.request.toyArticle;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.ErrorResponse;
+import lombok.Setter;
 import phoenix.partyquest.domain.toyArticle.ToyArticle;
 import phoenix.partyquest.domain.toyArticle.ToyMember;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class ToyArticleRequest {
 

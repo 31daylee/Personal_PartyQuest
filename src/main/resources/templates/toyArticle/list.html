@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>롯데ON::고객센터</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+      </header>
+
+      <section id="cs">
+        <div class="qna">
+
+          <section class="list">
+            <article>
+              <table>
+                <tr>
+                  <td>제목</td>
+                  <td>내용</td>
+                  <td>글쓴이</td>
+                </tr>
+              </table>
+
+              <div class="page">
+
+
+              </div>
+              <a th:href="@{/toyArticle/write}" class="btnWrite">문의하기</a>
+            </article>
+          </section>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>
