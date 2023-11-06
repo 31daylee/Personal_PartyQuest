@@ -1,7 +1,7 @@
-package phoenix.partyquest.repository.toyArticle;
+package phoenix.partyquest.repository.toyarticle;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import phoenix.partyquest.domain.toyArticle.ToyMember;
+import phoenix.partyquest.domain.toyarticle.ToyMember;
 
 import java.util.Optional;
 

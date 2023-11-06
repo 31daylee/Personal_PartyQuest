@@ -1,14 +1,14 @@
-package phoenix.partyquest.service.toyArticle;
+package phoenix.partyquest.service.toyarticle;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import phoenix.partyquest.domain.toyArticle.ToyArticle;
-import phoenix.partyquest.domain.toyArticle.ToyMember;
-import phoenix.partyquest.repository.toyArticle.ToyArticleRepository;
-import phoenix.partyquest.repository.toyArticle.ToyMemberRepository;
-import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
+import phoenix.partyquest.domain.toyarticle.ToyArticle;
+import phoenix.partyquest.domain.toyarticle.ToyMember;
+import phoenix.partyquest.repository.toyarticle.ToyArticleRepository;
+import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
+import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
 
 import java.util.List;
 
@@ -35,6 +35,11 @@ public class ToyArticleService {
 
     public List<ToyArticle> selectArticles(){
         return toyArticleRepository.findAll();
+    }
+
+    @Transactional
+    public void updateArticle(){
+
     }
 
 

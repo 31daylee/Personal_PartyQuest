@@ -1,4 +1,4 @@
-package phoenix.partyquest.service.toyArticle;
+package phoenix.partyquest.service.toyarticle;
 
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
@@ -9,11 +9,11 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import phoenix.partyquest.domain.toyArticle.ToyArticle;
-import phoenix.partyquest.domain.toyArticle.ToyMember;
-import phoenix.partyquest.repository.toyArticle.ToyArticleRepository;
-import phoenix.partyquest.repository.toyArticle.ToyMemberRepository;
-import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
+import phoenix.partyquest.domain.toyarticle.ToyArticle;
+import phoenix.partyquest.domain.toyarticle.ToyMember;
+import phoenix.partyquest.repository.toyarticle.ToyArticleRepository;
+import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
+import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +100,10 @@ class ToyArticleServiceTest {
 
         // then
         Assertions.assertThat(result.size()).isEqualTo(2);
-
-
     }
+
+
+
+
 
 }

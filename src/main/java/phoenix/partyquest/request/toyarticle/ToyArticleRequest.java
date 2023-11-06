@@ -1,11 +1,11 @@
-package phoenix.partyquest.request.toyArticle;
+package phoenix.partyquest.request.toyarticle;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import phoenix.partyquest.domain.toyArticle.ToyArticle;
-import phoenix.partyquest.domain.toyArticle.ToyMember;
+import phoenix.partyquest.domain.toyarticle.ToyArticle;
+import phoenix.partyquest.domain.toyarticle.ToyMember;
 
 @Getter @Setter
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package phoenix.partyquest.controller.toyArticle;
+package phoenix.partyquest.controller.toyarticle;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
-import phoenix.partyquest.service.toyArticle.ToyArticleService;
+import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
+import phoenix.partyquest.service.toyarticle.ToyArticleService;
 
 @Log4j2
 @RequiredArgsConstructor

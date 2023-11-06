@@ -1,4 +1,4 @@
-package phoenix.partyquest.domain.toyArticle;
+package phoenix.partyquest.domain.toyarticle;
 
 import jakarta.persistence.*;
 import lombok.Builder;

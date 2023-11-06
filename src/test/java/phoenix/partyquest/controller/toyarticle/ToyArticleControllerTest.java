@@ -1,4 +1,4 @@
-package phoenix.partyquest.controller.toyArticle;
+package phoenix.partyquest.controller.toyarticle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +13,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import phoenix.partyquest.repository.toyArticle.ToyMemberRepository;
-import phoenix.partyquest.request.toyArticle.ToyArticleRequest;
-import phoenix.partyquest.service.toyArticle.ToyArticleService;
+import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
+import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
+import phoenix.partyquest.service.toyarticle.ToyArticleService;
 
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
