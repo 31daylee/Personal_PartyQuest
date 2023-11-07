@@ -11,6 +11,7 @@ import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
 import phoenix.partyquest.request.toyarticle.ToyArticleDeleteRequest;
 import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
 import phoenix.partyquest.request.toyarticle.ToyArticleUpdateRequest;
+import phoenix.partyquest.response.toyarticle.ToyArticleListResponse;
 
 import java.util.List;
 
@@ -35,9 +36,9 @@ public class ToyArticleService {
         return toyArticleRepository.save(toyArticleRequest.toToyArticle(findMember));
     }
 
-    public List<ToyArticle> selectArticles(){
+    public List<ToyArticleListResponse> selectArticles(){
 
-        return toyArticleRepository.findAll();
+        return toyArticleRepository.findAllByAuthorId();
     }
 
 
