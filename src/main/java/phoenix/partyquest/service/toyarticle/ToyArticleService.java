@@ -8,7 +8,9 @@ import phoenix.partyquest.domain.toyarticle.ToyArticle;
 import phoenix.partyquest.domain.toyarticle.ToyMember;
 import phoenix.partyquest.repository.toyarticle.ToyArticleRepository;
 import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
+import phoenix.partyquest.request.toyarticle.ToyArticleDeleteRequest;
 import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
+import phoenix.partyquest.request.toyarticle.ToyArticleUpdateRequest;
 
 import java.util.List;
 
@@ -34,13 +36,44 @@ public class ToyArticleService {
     }
 
     public List<ToyArticle> selectArticles(){
+
         return toyArticleRepository.findAll();
     }
 
-    @Transactional
-    public void updateArticle(){
 
+
+
+    /*동한 ) 도메인에서 update 처리함
+     * 현정 ) 서비스 단에서 update 처리함
+     * 차이 ) 서비스는 도메인에게 요청을 하는 클래스이지 서비스에서 도메인의 내용을 변경하는 것은 아니다. 서비스는 단순 메시지 송신. 그리고 도메인에서 update를 관리 및 메시지 수신
+     * */
+    @Transactional
+    public ToyArticle updateArticle(ToyArticleUpdateRequest toyArticleUpdateRequest){
+
+        ToyArticle findArticle = toyArticleRepository.findToyArticleById(toyArticleUpdateRequest.getArticleId()).orElseThrow();
+
+        if(findArticle.getAuthor().getId() != toyArticleUpdateRequest.getAuthorId()){
+            log.info("접근 허용 되지 않은 사용자 입니다.");
+            throw new RuntimeException();
+        }
+        findArticle.updateArticle(toyArticleUpdateRequest.toToyArticle());
+        return findArticle;
     }
+
+    /* Delete 메서드를 실행한 후 해당 Long articleId를 반환 해준다 */
+    public Long deleteArticle(ToyArticleDeleteRequest toyArticleDeleteRequest){
+
+        ToyArticle findArticle = toyArticleRepository.findToyArticleById(toyArticleDeleteRequest.getArticleId()).orElseThrow();
+
+        if(findArticle.getAuthor().getId() != toyArticleDeleteRequest.getAuthorId()){
+            log.info("접근 허용 되지 않은 사용자 입니다.");
+            throw new RuntimeException();
+        }
+        toyArticleRepository.delete(findArticle);
+        return toyArticleDeleteRequest.getArticleId();
+    }
+
+
 
 
 

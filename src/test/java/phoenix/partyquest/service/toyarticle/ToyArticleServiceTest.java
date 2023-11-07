@@ -4,8 +4,6 @@ import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,21 +11,24 @@ import phoenix.partyquest.domain.toyarticle.ToyArticle;
 import phoenix.partyquest.domain.toyarticle.ToyMember;
 import phoenix.partyquest.repository.toyarticle.ToyArticleRepository;
 import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
+import phoenix.partyquest.request.toyarticle.ToyArticleDeleteRequest;
 import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
+import phoenix.partyquest.request.toyarticle.ToyArticleUpdateRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.BDDMockito.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Transactional
 @SpringBootTest
 class ToyArticleServiceTest {
 
-    @InjectMocks
+    @Autowired
     ToyArticleService toyArticleService;
 
-    @Mock
+    @Autowired
     ToyArticleRepository toyArticleRepository;
 
     @Autowired
@@ -53,8 +54,8 @@ class ToyArticleServiceTest {
 
         // requestDTO 에서 필요한, authorId/title/content 정보 초기화
         Long testAuthorId = savedMember.getId();
-        String testTitle = "testTitle";
-        String testContent = "testContent";
+        String testTitle = "testTitle2";
+        String testContent = "testContent2";
 
         // when
         ToyArticleRequest testRequest = ToyArticleRequest.builder()
@@ -93,13 +94,95 @@ class ToyArticleServiceTest {
         toyArticleList.add(article1);
         toyArticleList.add(article2);
 
-        given(toyArticleRepository.findAll()).willReturn(toyArticleList);
-
         // when
-        List<ToyArticle> result = toyArticleService.selectArticles();
+        toyArticleList = toyArticleService.selectArticles();
 
         // then
-        Assertions.assertThat(result.size()).isEqualTo(2);
+        Assertions.assertThat(toyArticleList.size()).isEqualTo(2);
+    }
+
+
+    @Test
+    @DisplayName("아티클을 업데이트 할 수 있을까요?")
+    void updateArticle(){
+
+        // given
+        String name1 = "bella";
+        ToyMember testMember = ToyMember.builder()
+                .name(name1)
+                .build();
+        ToyMember savedMember1 = toyMemberRepository.save(testMember);
+
+        String name2 = "BBB";
+        ToyMember testMember2 = ToyMember.builder()
+                .name(name2)
+                .build();
+        ToyMember savedMember2 = toyMemberRepository.save(testMember2);
+
+        // when
+        ToyArticleRequest testRequest = ToyArticleRequest.builder()
+                                    .title("제목")
+                                    .content("내용")
+                                    .authorId(testMember.getId())
+                                    .build();
+        ToyArticle newArticle = toyArticleService.insertArticle(testRequest);
+
+        ToyArticleUpdateRequest toyArticleUpdateRequest = new ToyArticleUpdateRequest();
+        toyArticleUpdateRequest.setTitle("제목 수정");
+        toyArticleUpdateRequest.setContent("내용 수정");
+        // 새롭게 등록된 아티클 articleId 가져온 후 저장
+        toyArticleUpdateRequest.setArticleId(newArticle.getId());
+        toyArticleUpdateRequest.setAuthorId(savedMember2.getId());
+
+        //권한없는 사람이 업데이트 접근시 에러를 던진다.
+        assertThatThrownBy(() -> toyArticleService.updateArticle(toyArticleUpdateRequest)).isInstanceOf(RuntimeException.class);
+
+        toyArticleUpdateRequest.setAuthorId(savedMember1.getId());
+        ToyArticle toyArticle = toyArticleService.updateArticle(toyArticleUpdateRequest);
+        assertThat(toyArticle.getTitle()).isEqualTo(toyArticleUpdateRequest.getTitle());
+        assertThat(toyArticle.getContent()).isEqualTo(toyArticleUpdateRequest.getContent());
+
+
+
+    }
+
+    @Test
+    @DisplayName("아티클을 삭제 할 수 있을까요?")
+    void deleteArticle() {
+        // given
+        String name1 = "bella";
+        ToyMember testMember = ToyMember.builder()
+                .name(name1)
+                .build();
+        ToyMember savedMember1 = toyMemberRepository.save(testMember);
+
+        String name2 = "BBB";
+        ToyMember testMember2 = ToyMember.builder()
+                .name(name2)
+                .build();
+        ToyMember savedMember2 = toyMemberRepository.save(testMember2);
+
+        // when
+        ToyArticleRequest testRequest = ToyArticleRequest.builder()
+                .title("제목")
+                .content("내용")
+                .authorId(testMember.getId())
+                .build();
+        ToyArticle newArticle = toyArticleService.insertArticle(testRequest);
+
+
+        ToyArticleDeleteRequest toyArticleDeleteRequest = new ToyArticleDeleteRequest();
+
+        toyArticleDeleteRequest.setArticleId(newArticle.getId());
+        toyArticleDeleteRequest.setAuthorId(testMember2.getId());
+
+        //권한없는 사람이 업데이트 접근시 에러를 던진다.
+        assertThatThrownBy(() -> toyArticleService.deleteArticle(toyArticleDeleteRequest)).isInstanceOf(RuntimeException.class);
+
+        toyArticleDeleteRequest.setAuthorId(savedMember1.getId());
+        Long articleId = toyArticleService.deleteArticle(toyArticleDeleteRequest);
+        assertThat(articleId).isEqualTo(toyArticleDeleteRequest.getArticleId());
+
     }
 
 

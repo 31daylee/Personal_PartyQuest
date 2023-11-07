@@ -25,4 +25,9 @@ public class ToyArticle {
         this.title = title;
         this.content = content;
     }
+
+    public void updateArticle(ToyArticle article){
+        this.title = article.getTitle();
+        this.content = article.getContent();
+    }
 }
