@@ -14,6 +14,7 @@ import phoenix.partyquest.repository.toyarticle.ToyMemberRepository;
 import phoenix.partyquest.request.toyarticle.ToyArticleDeleteRequest;
 import phoenix.partyquest.request.toyarticle.ToyArticleRequest;
 import phoenix.partyquest.request.toyarticle.ToyArticleUpdateRequest;
+import phoenix.partyquest.response.toyarticle.ToyArticleListResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,21 +89,23 @@ class ToyArticleServiceTest {
         ToyMember savedMember2 = toyMemberRepository.save(testMember2);
 
         List<ToyArticle> toyArticleList = new ArrayList<>();
-        ToyArticle article1 = new ToyArticle(savedMember1,"테스트1","컨텐츠1" );
-        ToyArticle article2 = new ToyArticle(savedMember2,"테스트2","컨텐츠2" );
+        ToyArticle article1 = new ToyArticle(savedMember1,"title1","content1");
+        ToyArticle article2 = new ToyArticle(savedMember1,"title2","content2");
 
         toyArticleList.add(article1);
         toyArticleList.add(article2);
 
         // when
-        toyArticleList = toyArticleService.selectArticles();
+        List<ToyArticleListResponse> toyArticleListResponses = toyArticleService.selectArticles();
 
         // then
-        Assertions.assertThat(toyArticleList.size()).isEqualTo(2);
+        assertThat(toyArticleListResponses.size()).isEqualTo(2);
+
     }
 
 
     @Test
+
     @DisplayName("아티클을 업데이트 할 수 있을까요?")
     void updateArticle(){
 

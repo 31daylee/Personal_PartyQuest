@@ -13,10 +13,9 @@ public interface ToyArticleRepository extends JpaRepository<ToyArticle,Long> {
 
     public Optional<ToyArticle> findToyArticleById(@Param("id") Long id);
 
-    @Query("SELECT a FROM ToyArticle a JOIN a.author b WHERE b.id = :id")
-    public List<ToyArticle> findAllByAuthorId();
+    @Query("SELECT a FROM ToyArticle a left join a.author aa")
+    public List<ToyArticle> findArticlesWithAuthor();
 }
-
 
 
 

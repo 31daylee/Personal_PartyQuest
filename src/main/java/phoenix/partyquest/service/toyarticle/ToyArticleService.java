@@ -14,6 +14,7 @@ import phoenix.partyquest.request.toyarticle.ToyArticleUpdateRequest;
 import phoenix.partyquest.response.toyarticle.ToyArticleListResponse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -38,7 +39,10 @@ public class ToyArticleService {
 
     public List<ToyArticleListResponse> selectArticles(){
 
-        return toyArticleRepository.findAllByAuthorId();
+        return toyArticleRepository.findArticlesWithAuthor()
+                    .stream()
+                    .map(ToyArticleListResponse::new)
+                    .collect(Collectors.toList());
     }
 
 
